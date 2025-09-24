@@ -22,16 +22,16 @@ const Splash = () => {
         <div className="space-y-4">
           <Button 
             onClick={() => navigate("/onboarding")}
-            className="w-full bg-gradient-growth text-primary-foreground shadow-soft hover:shadow-focus transition-all duration-300"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-focus hover:shadow-zen transition-all duration-300 rounded-xl h-14 text-lg font-semibold"
             size="lg"
           >
-            Continue with Google
+            Continue with Google ✨
           </Button>
           
           <Button 
             variant="outline" 
             onClick={() => navigate("/onboarding")}
-            className="w-full border-primary text-primary hover:bg-primary/10"
+            className="w-full border-2 border-primary text-primary hover:bg-primary/10 rounded-xl h-14 text-lg font-medium"
             size="lg"
           >
             Continue as Guest

@@ -42,10 +42,10 @@ const Purpose = () => {
           <Button
             onClick={handleSubmit}
             disabled={!purpose.trim()}
-            className="w-full bg-gradient-growth text-primary-foreground shadow-soft hover:shadow-focus transition-all duration-300"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-focus hover:shadow-zen transition-all duration-300 rounded-xl h-14 text-lg font-semibold disabled:opacity-50"
             size="lg"
           >
-            Set my compass
+            Set my compass ✨
           </Button>
         </div>
       </Card>

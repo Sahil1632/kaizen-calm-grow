@@ -107,10 +107,10 @@ const Profile = () => {
             <div className="pt-4">
               <Button
                 onClick={handleSave}
-                className="w-full bg-gradient-growth text-primary-foreground shadow-soft hover:shadow-focus transition-all duration-300"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-focus hover:shadow-zen transition-all duration-300 rounded-xl h-14 text-lg font-semibold"
                 size="lg"
               >
-                Save Profile
+                Save Profile ✨
               </Button>
               
               <p className="text-xs text-center text-zen mt-3">

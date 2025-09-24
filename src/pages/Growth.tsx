@@ -78,10 +78,10 @@ const Growth = () => {
           <div className="space-y-3">
             <Button
               onClick={handleNewMilestone}
-              className="w-full bg-gradient-growth text-primary-foreground"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-focus hover:shadow-zen transition-all duration-300 rounded-xl h-14 text-lg font-semibold"
               size="lg"
             >
-              Start Another Milestone
+              Start Another Milestone ✨
             </Button>
 
             <Button
@@ -173,10 +173,10 @@ const Growth = () => {
 
         <Button
           onClick={() => navigate("/home")}
-          className="w-full bg-gradient-growth text-primary-foreground shadow-soft hover:shadow-focus transition-all duration-300"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-focus hover:shadow-zen transition-all duration-300 rounded-xl h-14 text-lg font-semibold"
           size="lg"
         >
-          Continue Growing
+          Continue Growing ✨
         </Button>
       </div>
     </div>

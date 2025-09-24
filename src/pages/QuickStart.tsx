@@ -89,10 +89,10 @@ const QuickStart = () => {
                   handleSubmit();
                 }}
                 disabled={!task.trim()}
-                className="w-full bg-gradient-growth text-primary-foreground shadow-soft hover:shadow-focus transition-all duration-300"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-focus hover:shadow-zen transition-all duration-300 rounded-xl h-14 text-lg font-semibold disabled:opacity-50"
                 size="lg"
               >
-                Start Focus Session
+                Start Focus Session ✨
               </Button>
 
               <Button
@@ -102,7 +102,7 @@ const QuickStart = () => {
                 }}
                 disabled={!task.trim()}
                 variant="outline"
-                className="w-full border-primary text-primary hover:bg-primary/10"
+                className="w-full border-2 border-primary text-primary hover:bg-primary/10 rounded-xl h-12 text-base font-medium disabled:opacity-50"
                 size="lg"
               >
                 Save for Later

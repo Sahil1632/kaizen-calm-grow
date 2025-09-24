@@ -105,14 +105,14 @@ const SmartGuidance = () => {
                 className="bg-background/50 border-primary/20 focus:border-primary"
               />
 
-              <Button
-                onClick={handleAnalyze}
-                disabled={!taskDescription.trim()}
-                className="w-full bg-gradient-growth text-primary-foreground shadow-soft hover:shadow-focus transition-all duration-300"
-                size="lg"
-              >
-                Break It Down
-              </Button>
+                <Button
+                  onClick={handleAnalyze}
+                  disabled={!taskDescription.trim()}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-focus hover:shadow-zen transition-all duration-300 rounded-xl h-14 text-lg font-semibold disabled:opacity-50"
+                  size="lg"
+                >
+                  Break It Down ✨
+                </Button>
             </div>
           </Card>
         ) : (

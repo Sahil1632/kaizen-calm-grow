@@ -160,10 +160,10 @@ const FocusMode = () => {
 
               <Button
                 onClick={toggleTimer}
-                className="bg-gradient-growth text-primary-foreground px-8"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 shadow-focus hover:shadow-zen transition-all duration-300 rounded-xl h-14 text-lg font-semibold"
                 size="lg"
               >
-                {isRunning ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                {isRunning ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
               </Button>
             </div>
           </>

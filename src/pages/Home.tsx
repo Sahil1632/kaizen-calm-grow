@@ -80,7 +80,7 @@ const Home = () => {
             <Button
               onClick={() => navigate("/smart-guidance")}
               variant="outline"
-              className="w-full border-border text-foreground hover:bg-accent/50 rounded-xl h-14 text-base font-medium"
+              className="w-full border-2 border-primary text-primary hover:bg-primary/10 rounded-xl h-14 text-base font-medium"
               size="lg"
             >
               <Brain className="w-5 h-5 mr-3" />
