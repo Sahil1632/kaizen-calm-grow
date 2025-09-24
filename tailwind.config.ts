@@ -47,6 +47,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        energy: {
+          drained: "hsl(var(--energy-drained))",
+          low: "hsl(var(--energy-low))",
+          balanced: "hsl(var(--energy-balanced))",
+          focused: "hsl(var(--energy-focused))",
+          peak: "hsl(var(--energy-peak))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -65,25 +72,48 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        breathe: {
+          "0%, 100%": { transform: "scale(1)", opacity: "0.8" },
+          "50%": { transform: "scale(1.05)", opacity: "1" },
+        },
+        grow: {
+          "0%": { transform: "scale(0.8) rotate(-5deg)", opacity: "0" },
+          "100%": { transform: "scale(1) rotate(0deg)", opacity: "1" },
+        },
+        "leaf-fall": {
+          "0%": { transform: "translateY(-20px) rotate(0deg)", opacity: "0" },
+          "50%": { opacity: "1" },
+          "100%": { transform: "translateY(0px) rotate(360deg)", opacity: "1" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "slide-up": {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        breathe: "breathe 4s ease-in-out infinite",
+        grow: "grow 0.6s ease-out",
+        "leaf-fall": "leaf-fall 2s ease-in-out",
+        "fade-in": "fade-in 0.3s ease-out",
+        "slide-up": "slide-up 0.4s ease-out",
+      },
+      boxShadow: {
+        soft: "var(--shadow-soft)",
+        focus: "var(--shadow-focus)",
+        zen: "var(--shadow-zen)",
       },
     },
   },
