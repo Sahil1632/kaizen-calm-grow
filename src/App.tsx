@@ -14,6 +14,7 @@ import SmartGuidance from "./pages/SmartGuidance";
 import FocusMode from "./pages/FocusMode";
 import Growth from "./pages/Growth";
 import Profile from "./pages/Profile";
+import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 
 const AppContent = () => {
@@ -33,6 +34,7 @@ const AppContent = () => {
         <Route path="/focus" element={<FocusMode />} />
         <Route path="/growth" element={<Growth />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/subscription" element={<Subscription />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {showFloatingMenu && <FloatingMenu />}

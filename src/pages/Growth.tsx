@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, Clock, Target, Trophy, Star, Leaf } from "lucide-react";
 import kaizenPlant from "@/assets/kaizen-plant.jpg";
+import CalendarHeatmap from "@/components/CalendarHeatmap";
 
 const Growth = () => {
   const [stats, setStats] = useState<any>({});
@@ -112,13 +113,9 @@ const Growth = () => {
           <h1 className="text-xl font-bold text-growth">Growth</h1>
         </div>
 
-        {/* Plant Visual */}
+        {/* Animated Flower */}
         <Card className="p-6 mb-6 text-center shadow-zen bg-gradient-zen animate-fade-in">
-          <img 
-            src={kaizenPlant} 
-            alt="Your growth plant" 
-            className="w-24 h-24 mx-auto mb-4 animate-breathe"
-          />
+          <div className="text-6xl mb-4 animate-flower-bloom">🌸</div>
           <h2 className="text-lg font-bold text-growth mb-2">Your Garden Grows</h2>
           <p className="text-zen">Each session nurtures your progress</p>
         </Card>
@@ -170,6 +167,11 @@ const Growth = () => {
             </div>
           </Card>
         )}
+
+        {/* Calendar Heatmap */}
+        <div className="mb-6">
+          <CalendarHeatmap />
+        </div>
 
         <Button
           onClick={() => navigate("/home")}

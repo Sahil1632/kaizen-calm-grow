@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { Zap, Target, Brain } from "lucide-react";
+import { Zap, Target, Brain, Crown } from "lucide-react";
 import kaizenLogo from "@/assets/kaizen-logo.png";
 
 const Home = () => {
@@ -28,12 +28,23 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-calm p-6 pb-24">
       <div className="max-w-md mx-auto pt-8">
-        {/* Header with XP and Streaks */}
+        {/* Header with Streaks, Kaizen Plus, and XP */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center space-x-2 bg-card/60 backdrop-blur-sm px-3 py-2 rounded-full shadow-soft">
             <span className="text-lg">🔥</span>
             <span className="text-sm font-semibold text-growth">7 days</span>
           </div>
+          
+          {/* Kaizen Plus Banner */}
+          <Button
+            onClick={() => navigate("/subscription")}
+            variant="ghost"
+            className="flex items-center space-x-1 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 hover:from-yellow-400/30 hover:to-orange-400/30 px-3 py-2 rounded-full shadow-soft border border-yellow-400/30"
+          >
+            <Crown className="w-4 h-4 text-yellow-600" />
+            <span className="text-xs font-semibold text-yellow-700">Plus</span>
+          </Button>
+          
           <div className="flex items-center space-x-2 bg-card/60 backdrop-blur-sm px-3 py-2 rounded-full shadow-soft">
             <span className="text-lg">⭐</span>
             <span className="text-sm font-semibold text-growth">245 XP</span>
@@ -58,7 +69,7 @@ const Home = () => {
             <span className="text-sm text-muted-foreground">3/5 milestones</span>
           </div>
           <div className="w-full bg-background/30 rounded-full h-3 mb-3 overflow-hidden">
-            <div className="bg-gradient-to-r from-primary to-primary/80 h-3 rounded-full transition-all duration-500 animate-pulse" style={{width: '60%'}}></div>
+            <div className="bg-gradient-to-r from-primary to-primary/80 h-3 rounded-full transition-all duration-500" style={{width: '60%'}}></div>
           </div>
           <div className="flex justify-between text-xs text-muted-foreground">
             <span>🎯 Task completed: 2</span>
