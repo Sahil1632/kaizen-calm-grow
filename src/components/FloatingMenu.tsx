@@ -24,46 +24,27 @@ export const FloatingMenu = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      {/* Menu Items */}
-      <div 
-        className={cn(
-          "flex flex-col-reverse space-y-3 space-y-reverse mb-3 transition-all duration-300",
-          isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-        )}
-      >
+    <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+      {/* Navigation Bar */}
+      <div className="bg-card/90 backdrop-blur-md rounded-full px-4 py-3 shadow-zen border border-primary/20 flex items-center space-x-6">
         {menuItems.map((item) => (
           <Button
             key={item.path}
             onClick={() => handleItemClick(item.path)}
-            size="lg"
-            variant={isActive(item.path) ? "default" : "secondary"}
+            variant="ghost"
+            size="sm"
             className={cn(
-              "w-14 h-14 rounded-full shadow-floating backdrop-blur-md transition-all duration-200 hover:scale-105",
+              "rounded-full w-12 h-12 p-0 transition-all duration-300",
               isActive(item.path) 
-                ? "bg-primary text-primary-foreground shadow-focus" 
-                : "bg-gradient-floating border border-border/50 text-muted-foreground hover:text-foreground"
+                ? "bg-primary text-primary-foreground shadow-soft" 
+                : "text-muted-foreground hover:text-primary hover:bg-primary/10"
             )}
           >
-            <item.icon className="w-6 h-6" />
+            <item.icon className="w-5 h-5" />
             <span className="sr-only">{item.label}</span>
           </Button>
         ))}
       </div>
-
-      {/* Toggle Button */}
-      <Button
-        onClick={() => setIsOpen(!isOpen)}
-        size="lg"
-        className={cn(
-          "w-16 h-16 rounded-full shadow-floating backdrop-blur-md transition-all duration-300 hover:scale-105",
-          "bg-gradient-floating border border-border/50 text-foreground",
-          isOpen && "rotate-45"
-        )}
-      >
-        {isOpen ? <X className="w-7 h-7" /> : <Plus className="w-7 h-7" />}
-        <span className="sr-only">Toggle menu</span>
-      </Button>
     </div>
   );
 };

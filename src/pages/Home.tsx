@@ -28,6 +28,18 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-calm p-6 pb-24">
       <div className="max-w-md mx-auto pt-8">
+        {/* Header with XP and Streaks */}
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center space-x-2 bg-card/60 backdrop-blur-sm px-3 py-2 rounded-full shadow-soft">
+            <span className="text-lg">🔥</span>
+            <span className="text-sm font-semibold text-growth">7 days</span>
+          </div>
+          <div className="flex items-center space-x-2 bg-card/60 backdrop-blur-sm px-3 py-2 rounded-full shadow-soft">
+            <span className="text-lg">⭐</span>
+            <span className="text-sm font-semibold text-growth">245 XP</span>
+          </div>
+        </div>
+
         {/* Logo and Greeting */}
         <div className="text-center mb-8 animate-fade-in">
           <img src={kaizenLogo} alt="Kaizen" className="w-20 h-20 mx-auto mb-4 rounded-2xl shadow-soft" />
@@ -38,6 +50,21 @@ const Home = () => {
             </p>
           )}
         </div>
+
+        {/* Progress Bar */}
+        <Card className="p-5 mb-6 bg-gradient-zen shadow-soft rounded-2xl border-0 animate-fade-in">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-medium text-foreground">Today's Progress</h3>
+            <span className="text-sm text-muted-foreground">3/5 milestones</span>
+          </div>
+          <div className="w-full bg-background/30 rounded-full h-3 mb-3 overflow-hidden">
+            <div className="bg-gradient-to-r from-primary to-primary/80 h-3 rounded-full transition-all duration-500 animate-pulse" style={{width: '60%'}}></div>
+          </div>
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>🎯 Task completed: 2</span>
+            <span>✨ Streak: 7 days</span>
+          </div>
+        </Card>
 
         {/* Energy Status */}
         <Card className="p-5 mb-6 bg-card shadow-soft rounded-2xl border-0">

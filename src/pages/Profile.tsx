@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, User, Settings } from "lucide-react";
+import CalendarHeatmap from "@/components/CalendarHeatmap";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -119,6 +120,11 @@ const Profile = () => {
             </div>
           </div>
         </Card>
+
+        {/* Calendar Heatmap */}
+        <div className="mt-6">
+          <CalendarHeatmap />
+        </div>
 
         {/* Quick Settings */}
         <Card className="p-4 mt-4 shadow-zen bg-card/80 backdrop-blur-sm">

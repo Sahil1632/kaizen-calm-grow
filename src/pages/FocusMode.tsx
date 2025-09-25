@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useNavigate } from "react-router-dom";
-import { Pause, Play, RotateCcw, X } from "lucide-react";
+import { Pause, Play, RotateCcw, X, Volume2 } from "lucide-react";
 
 const FocusMode = () => {
   const [task, setTask] = useState<any>(null);
@@ -164,6 +164,14 @@ const FocusMode = () => {
                 size="lg"
               >
                 {isRunning ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+              </Button>
+
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-primary text-primary"
+              >
+                <Volume2 className="w-4 h-4" />
               </Button>
             </div>
           </>

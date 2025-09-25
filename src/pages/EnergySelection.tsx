@@ -4,11 +4,11 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 
 const energyLevels = [
-  { id: "drained", label: "Drained", emoji: "😴", description: "Need gentle recovery" },
-  { id: "low", label: "Low", emoji: "🌙", description: "Taking it slow today" },
-  { id: "balanced", label: "Balanced", emoji: "⚖️", description: "Steady and centered" },
+  { id: "peak", label: "Peak", emoji: "⚡", description: "Full energy mode" },
   { id: "focused", label: "Focused", emoji: "🎯", description: "Ready to dive deep" },
-  { id: "peak", label: "Peak", emoji: "⚡", description: "Full energy mode" }
+  { id: "balanced", label: "Balanced", emoji: "⚖️", description: "Steady and centered" },
+  { id: "low", label: "Low", emoji: "🌙", description: "Taking it slow today" },
+  { id: "drained", label: "Drained", emoji: "😴", description: "Need gentle recovery" }
 ];
 
 const EnergySelection = () => {
