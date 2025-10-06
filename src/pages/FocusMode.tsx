@@ -18,6 +18,11 @@ const FocusMode = () => {
       const taskData = JSON.parse(savedTask);
       setTask(taskData);
       setTimeLeft(taskData.estimatedTime * 60); // Convert to seconds
+      const auto = localStorage.getItem("kaizen-autostart-focus");
+      if (auto) {
+        setIsRunning(true);
+        localStorage.removeItem("kaizen-autostart-focus");
+      }
     } else {
       // No task, redirect to home
       navigate("/home");

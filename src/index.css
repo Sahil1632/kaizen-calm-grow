@@ -17,30 +17,30 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 15% 25%;
 
-    /* Soft pastel green primary */
-    --primary: 140 35% 65%;
+    /* Vibrant primary for modern feel */
+    --primary: 158 70% 45%;
     --primary-foreground: 0 0% 100%;
 
-    /* Warm secondary tones */
-    --secondary: 20 40% 92%;
+    /* Refreshed secondary tones */
+    --secondary: 160 35% 96%;
     --secondary-foreground: 220 15% 25%;
 
     /* Gentle muted tones */
     --muted: 210 20% 95%;
     --muted-foreground: 220 10% 50%;
 
-    /* Soft blue accent */
-    --accent: 210 40% 88%;
-    --accent-foreground: 220 15% 25%;
+    /* Brighter accent */
+    --accent: 200 80% 60%;
+    --accent-foreground: 0 0% 100%;
 
-    /* Gentle pink for destructive */
-    --destructive: 350 50% 75%;
+    /* Clearer destructive */
+    --destructive: 350 70% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Minimal borders */
-    --border: 220 15% 88%;
-    --input: 220 15% 92%;
-    --ring: 140 35% 65%;
+    /* Subtle but visible borders */
+    --border: 220 15% 85%;
+    --input: 220 15% 90%;
+    --ring: 158 70% 45%;
 
     /* Energy level colors - soft pastels */
     --energy-drained: 350 40% 85%;
@@ -49,11 +49,11 @@
     --energy-focused: 200 40% 80%;
     --energy-peak: 270 35% 85%;
 
-    /* Soft pastel gradients */
-    --gradient-growth: linear-gradient(135deg, hsl(140 35% 85%), hsl(160 30% 88%));
-    --gradient-calm: linear-gradient(180deg, hsl(210 40% 95%), hsl(140 25% 95%));
-    --gradient-zen: linear-gradient(45deg, hsl(20 40% 95%), hsl(210 20% 95%));
-    --gradient-floating: linear-gradient(135deg, hsl(0 0% 100% / 0.9), hsl(140 35% 95% / 0.9));
+    /* Brighter gradients */
+    --gradient-growth: linear-gradient(135deg, hsl(158 70% 96%), hsl(200 80% 96%));
+    --gradient-calm: linear-gradient(180deg, hsl(210 70% 98%), hsl(158 60% 97%));
+    --gradient-zen: linear-gradient(45deg, hsl(260 80% 97%), hsl(200 80% 97%));
+    --gradient-floating: linear-gradient(135deg, hsl(0 0% 100% / 0.9), hsl(158 60% 97% / 0.9));
 
     /* Soft, minimal shadows */
     --shadow-soft: 0 2px 12px hsla(220, 15%, 25%, 0.08);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, TrendingUp, Timer, User, Plus, X } from "lucide-react";
+import { Home, TrendingUp, PenLine, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const FloatingMenu = () => {
@@ -12,7 +12,7 @@ export const FloatingMenu = () => {
   const menuItems = [
     { icon: Home, label: "Home", path: "/home" },
     { icon: TrendingUp, label: "Growth", path: "/growth" },
-    { icon: Timer, label: "Timer", path: "/focus" },
+    { icon: PenLine, label: "Reflect", path: "/reflect" },
     { icon: User, label: "Profile", path: "/profile" },
   ];
 
@@ -24,9 +24,9 @@ export const FloatingMenu = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+    <div className="fixed bottom-3 left-1/2 transform -translate-x-1/2 z-50">
       {/* Navigation Bar */}
-      <div className="bg-card/90 backdrop-blur-md rounded-full px-4 py-3 shadow-zen border border-primary/20 flex items-center space-x-6">
+      <div className="bg-card/90 backdrop-blur-md rounded-full px-3 py-2 shadow-zen border border-primary/20 flex items-center space-x-3">
         {menuItems.map((item) => (
           <Button
             key={item.path}

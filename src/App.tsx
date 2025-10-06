@@ -16,6 +16,7 @@ import Growth from "./pages/Growth";
 import Profile from "./pages/Profile";
 import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
+import Reflection from "./pages/Reflection";
 
 const AppContent = () => {
   const location = useLocation();
@@ -32,11 +33,13 @@ const AppContent = () => {
         <Route path="/quick-start" element={<QuickStart />} />
         <Route path="/smart-guidance" element={<SmartGuidance />} />
         <Route path="/focus" element={<FocusMode />} />
+        <Route path="/reflect" element={<Reflection />} />
         <Route path="/growth" element={<Growth />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/subscription" element={<Subscription />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      {showFloatingMenu && <div aria-hidden className="h-14" />}
       {showFloatingMenu && <FloatingMenu />}
     </>
   );

@@ -8,6 +8,7 @@ import kaizenLogo from "@/assets/kaizen-logo.png";
 const Home = () => {
   const [purpose, setPurpose] = useState("");
   const [energy, setEnergy] = useState("");
+  const [hasReflectionToday, setHasReflectionToday] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,6 +16,12 @@ const Home = () => {
     const savedEnergy = localStorage.getItem("kaizen-energy") || "";
     setPurpose(savedPurpose);
     setEnergy(savedEnergy);
+  }, []);
+
+  useEffect(() => {
+    const reflections = JSON.parse(localStorage.getItem("kaizen-reflections") || "[]");
+    const today = new Date().toISOString().slice(0, 10);
+    setHasReflectionToday(reflections.some((r: any) => r.date === today));
   }, []);
 
   const energyEmojis: Record<string, string> = {
@@ -61,6 +68,19 @@ const Home = () => {
             </p>
           )}
         </div>
+        {!hasReflectionToday && (
+          <Card className="p-4 mb-6 bg-card shadow-soft rounded-2xl border border-primary/20 animate-fade-in">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-medium text-foreground">Evening reflection</h3>
+                <p className="text-sm text-muted-foreground">Jot down thoughts to clear your mind</p>
+              </div>
+              <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full" onClick={() => navigate("/reflect")}>
+                Reflect
+              </Button>
+            </div>
+          </Card>
+        )}
 
         {/* Progress Bar */}
         <Card className="p-5 mb-6 bg-gradient-zen shadow-soft rounded-2xl border-0 animate-fade-in">

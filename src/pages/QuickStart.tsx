@@ -5,12 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Clock, Target } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const QuickStart = () => {
   const [task, setTask] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("25");
   const [isFocus, setIsFocus] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleSubmit = () => {
     if (task.trim()) {
@@ -24,8 +26,17 @@ const QuickStart = () => {
       localStorage.setItem("kaizen-current-task", JSON.stringify(taskData));
       
       if (isFocus) {
+        localStorage.setItem("kaizen-autostart-focus", "true");
+        toast({
+          title: "Focus session starting",
+          description: `Timer set for ${estimatedTime} minutes`,
+        });
         navigate("/focus");
       } else {
+        toast({
+          title: "Saved for later",
+          description: "Your task has been saved",
+        });
         // Save for later and return to home
         navigate("/home");
       }
@@ -46,7 +57,7 @@ const QuickStart = () => {
           </Button>
           <h1 className="text-xl font-bold text-growth">Quick Start</h1>
         </div>
-
+        <p className="text-zen mb-4">Plan your day: add a task, prioritize, then start a focus session or save it for later.</p>
         <Card className="p-6 shadow-zen bg-card/80 backdrop-blur-sm animate-fade-in">
           <div className="text-center mb-6">
             <Target className="w-12 h-12 mx-auto mb-3 text-primary animate-breathe" />
