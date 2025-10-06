@@ -1,15 +1,80 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Brain, Clock, Star, Zap } from "lucide-react";
+import { ArrowLeft, Brain, Clock, Star, Zap, Mic, MicOff } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const SmartGuidance = () => {
   const [taskDescription, setTaskDescription] = useState("");
   const [showMilestones, setShowMilestones] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const recognitionRef = useRef<any>(null);
+
+  useEffect(() => {
+    // Check if browser supports Speech Recognition
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    
+    if (SpeechRecognition) {
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-US';
+
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setTaskDescription(transcript);
+        setIsListening(false);
+      };
+
+      recognitionRef.current.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+        toast({
+          title: "Voice input error",
+          description: "Please try again or type your task",
+          variant: "destructive",
+        });
+      };
+
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+    }
+
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, [toast]);
+
+  const toggleVoiceInput = () => {
+    if (!recognitionRef.current) {
+      toast({
+        title: "Not supported",
+        description: "Voice input is not supported in your browser",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    } else {
+      setIsListening(true);
+      recognitionRef.current.start();
+      toast({
+        title: "Listening...",
+        description: "Speak your task description",
+      });
+    }
+  };
 
   // Simulated milestones based on task input
   const generateMilestones = () => [
@@ -98,12 +163,22 @@ const SmartGuidance = () => {
             </div>
 
             <div className="space-y-6">
-              <Input
-                placeholder="Write that presentation for next week..."
-                value={taskDescription}
-                onChange={(e) => setTaskDescription(e.target.value)}
-                className="bg-background/50 border-primary/20 focus:border-primary"
-              />
+              <div className="relative">
+                <Input
+                  placeholder="Write that presentation for next week..."
+                  value={taskDescription}
+                  onChange={(e) => setTaskDescription(e.target.value)}
+                  className="bg-background/50 border-primary/20 focus:border-primary pr-12"
+                />
+                <Button
+                  onClick={toggleVoiceInput}
+                  size="sm"
+                  variant="ghost"
+                  className={`absolute right-1 top-1/2 -translate-y-1/2 ${isListening ? 'text-red-500 animate-pulse' : 'text-muted-foreground'}`}
+                >
+                  {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                </Button>
+              </div>
 
                 <Button
                   onClick={handleAnalyze}
