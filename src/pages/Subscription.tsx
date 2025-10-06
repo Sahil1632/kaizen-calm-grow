@@ -87,12 +87,12 @@ const Subscription = () => {
             <div className="flex items-center justify-between mb-3 mt-2">
               <div>
                 <h3 className="font-semibold text-growth">Yearly Plan</h3>
-                <p className="text-xs text-zen">Save 33% with annual billing</p>
+                <p className="text-xs text-zen">Best value - save big!</p>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-primary">₹1200</div>
+                <div className="text-2xl font-bold text-primary">₹999</div>
                 <div className="text-xs text-muted-foreground">/year</div>
-                <div className="text-xs text-green-600 font-medium">Save ₹600!</div>
+                <div className="text-xs text-green-600 font-medium">Save ₹801!</div>
               </div>
             </div>
             <Button 

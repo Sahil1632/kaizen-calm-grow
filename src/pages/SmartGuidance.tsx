@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Brain, Clock, Star, Zap, Mic, MicOff } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const SmartGuidance = () => {
   const [taskDescription, setTaskDescription] = useState("");
@@ -231,7 +231,7 @@ const SmartGuidance = () => {
 
                 <Button
                   onClick={() => startMilestone(milestone)}
-                  className="w-full bg-gradient-growth text-primary-foreground"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-soft hover:shadow-focus transition-all duration-300 rounded-xl font-semibold"
                   size="sm"
                 >
                   Start This Milestone
