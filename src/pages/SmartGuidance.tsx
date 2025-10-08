@@ -296,7 +296,7 @@ const SmartGuidance = () => {
 
                 <Button
                   onClick={() => startMilestone(milestone)}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-soft hover:shadow-focus transition-all duration-300 rounded-full font-semibold"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-focus hover:shadow-zen transition-all duration-300 rounded-full font-semibold"
                   size="sm"
                 >
                   Start This Milestone

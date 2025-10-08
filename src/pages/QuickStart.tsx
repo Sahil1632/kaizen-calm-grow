@@ -16,9 +16,11 @@ const QuickStart = () => {
 
   const handleStartFocus = () => {
     if (task.trim()) {
+      const xp = Math.max(8, Math.round(parseInt(estimatedTime) * 0.6));
       const taskData = {
         title: task,
         estimatedTime: parseInt(estimatedTime),
+        xp,
         type: "quick-start",
         createdAt: new Date().toISOString()
       };
@@ -28,7 +30,7 @@ const QuickStart = () => {
       
       toast({
         title: "Focus session starting",
-        description: `Timer set for ${estimatedTime} minutes`,
+        description: `Timer set for ${estimatedTime} minutes · +${xp} XP`,
       });
       navigate("/focus");
     }
@@ -36,9 +38,11 @@ const QuickStart = () => {
 
   const handleSaveForLater = () => {
     if (task.trim()) {
+      const xp = Math.max(8, Math.round(parseInt(estimatedTime) * 0.6));
       const taskData = {
         title: task,
         estimatedTime: parseInt(estimatedTime),
+        xp,
         type: "quick-start",
         createdAt: new Date().toISOString()
       };
@@ -47,7 +51,7 @@ const QuickStart = () => {
       
       toast({
         title: "✅ Task saved for later",
-        description: "You can start it anytime from your home screen",
+        description: `You can start it anytime from your home screen · +${xp} XP`,
       });
       navigate("/home");
     }

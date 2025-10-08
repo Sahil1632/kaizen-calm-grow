@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useNavigate } from "react-router-dom";
-import { Pause, Play, RotateCcw, X, Volume2 } from "lucide-react";
+import { Pause, Play, RotateCcw, X, Volume2, Star, Clock } from "lucide-react";
 
 const FocusMode = () => {
   const [task, setTask] = useState<any>(null);
@@ -117,6 +117,14 @@ const FocusMode = () => {
               </Button>
               
               <h1 className="text-lg font-bold text-growth mb-2">{task.title}</h1>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <span className="inline-flex items-center gap-1 text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                  <Star className="w-3 h-3" /> {(task?.xp ?? Math.max(8, Math.round((task?.estimatedTime || 25) * 0.6)))} XP
+                </span>
+                <span className="inline-flex items-center gap-1 text-xs bg-secondary/10 text-foreground px-2 py-1 rounded-full">
+                  <Clock className="w-3 h-3" /> {task?.estimatedTime || 25}m
+                </span>
+              </div>
               {task.description && (
                 <p className="text-sm text-zen">{task.description}</p>
               )}

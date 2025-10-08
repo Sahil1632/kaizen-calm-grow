@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { Zap, Target, Brain, Crown } from "lucide-react";
 import kaizenLogo from "@/assets/kaizen-logo.png";
+import heroAnime from "@/assets/hero-anime-focus.webp";
 
 const Home = () => {
   const [purpose, setPurpose] = useState("");
@@ -60,7 +61,7 @@ const Home = () => {
 
         {/* Logo and Greeting */}
         <div className="text-center mb-8 animate-fade-in">
-          <img src={kaizenLogo} alt="Kaizen" className="w-20 h-20 mx-auto mb-4 rounded-2xl shadow-soft" />
+          <img src={kaizenLogo} alt="Kaizen logo" className="w-20 h-20 mx-auto mb-4 rounded-2xl shadow-soft" />
           <h1 className="text-2xl font-medium text-growth mb-2">Welcome back</h1>
           {purpose && (
             <p className="text-zen text-sm bg-card/50 p-3 rounded-lg border border-primary/20">
@@ -68,6 +69,7 @@ const Home = () => {
             </p>
           )}
         </div>
+        <img src={heroAnime} alt="Anime productivity hero" loading="lazy" className="w-full h-40 object-cover rounded-2xl shadow-soft mb-6" />
         {!hasReflectionToday && (
           <Card className="p-4 mb-6 bg-card shadow-soft rounded-2xl border border-primary/20 animate-fade-in">
             <div className="flex items-center justify-between">
