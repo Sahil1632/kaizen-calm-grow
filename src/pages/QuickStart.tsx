@@ -14,7 +14,27 @@ const QuickStart = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleSubmit = () => {
+  const handleStartFocus = () => {
+    if (task.trim()) {
+      const taskData = {
+        title: task,
+        estimatedTime: parseInt(estimatedTime),
+        type: "quick-start",
+        createdAt: new Date().toISOString()
+      };
+      
+      localStorage.setItem("kaizen-current-task", JSON.stringify(taskData));
+      localStorage.setItem("kaizen-autostart-focus", "true");
+      
+      toast({
+        title: "Focus session starting",
+        description: `Timer set for ${estimatedTime} minutes`,
+      });
+      navigate("/focus");
+    }
+  };
+
+  const handleSaveForLater = () => {
     if (task.trim()) {
       const taskData = {
         title: task,
@@ -25,44 +45,34 @@ const QuickStart = () => {
       
       localStorage.setItem("kaizen-current-task", JSON.stringify(taskData));
       
-      if (isFocus) {
-        localStorage.setItem("kaizen-autostart-focus", "true");
-        toast({
-          title: "Focus session starting",
-          description: `Timer set for ${estimatedTime} minutes`,
-        });
-        navigate("/focus");
-      } else {
-        toast({
-          title: "Saved for later",
-          description: "Your task has been saved",
-        });
-        // Save for later and return to home
-        navigate("/home");
-      }
+      toast({
+        title: "✅ Task saved for later",
+        description: "You can start it anytime from your home screen",
+      });
+      navigate("/home");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-calm p-6">
-      <div className="max-w-md mx-auto pt-8">
-        <div className="flex items-center mb-6">
+    <div className="min-h-screen bg-gradient-calm p-4 pb-20">
+      <div className="max-w-md mx-auto pt-4">
+        <div className="flex items-center mb-4 gap-3">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => navigate("/home")}
-            className="mr-2"
+            className="rounded-full w-10 h-10 p-0"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-5 h-5" />
           </Button>
           <h1 className="text-xl font-bold text-growth">Quick Start</h1>
         </div>
-        <p className="text-zen mb-4">Plan your day: add a task, prioritize, then start a focus session or save it for later.</p>
-        <Card className="p-6 shadow-zen bg-card/80 backdrop-blur-sm animate-fade-in">
+        <p className="text-zen mb-4 text-sm">Plan your day: add a task, prioritize, then start a focus session or save it for later.</p>
+        <Card className="p-6 shadow-zen bg-card/90 backdrop-blur-sm animate-fade-in rounded-3xl">
           <div className="text-center mb-6">
             <Target className="w-12 h-12 mx-auto mb-3 text-primary animate-breathe" />
             <h2 className="text-lg font-bold text-growth mb-2">What's on your mind?</h2>
-            <p className="text-zen">Add a task to focus on today</p>
+            <p className="text-zen text-sm">Add a task to focus on today</p>
           </div>
 
           <div className="space-y-6">
@@ -73,7 +83,7 @@ const QuickStart = () => {
                 placeholder="Write that important email..."
                 value={task}
                 onChange={(e) => setTask(e.target.value)}
-                className="mt-2 bg-background/50 border-primary/20 focus:border-primary"
+                className="mt-2 bg-background/50 border-primary/20 focus:border-primary rounded-xl"
               />
             </div>
 
@@ -89,31 +99,25 @@ const QuickStart = () => {
                 max="120"
                 value={estimatedTime}
                 onChange={(e) => setEstimatedTime(e.target.value)}
-                className="mt-2 bg-background/50 border-primary/20 focus:border-primary"
+                className="mt-2 bg-background/50 border-primary/20 focus:border-primary rounded-xl"
               />
             </div>
 
             <div className="space-y-3">
               <Button
-                onClick={() => {
-                  setIsFocus(true);
-                  handleSubmit();
-                }}
+                onClick={handleStartFocus}
                 disabled={!task.trim()}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-focus hover:shadow-zen transition-all duration-300 rounded-xl h-14 text-lg font-semibold disabled:opacity-50"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-focus hover:shadow-zen transition-all duration-300 rounded-full h-14 text-lg font-semibold disabled:opacity-50"
                 size="lg"
               >
                 Start Focus Session ✨
               </Button>
 
               <Button
-                onClick={() => {
-                  setIsFocus(false);
-                  handleSubmit();
-                }}
+                onClick={handleSaveForLater}
                 disabled={!task.trim()}
                 variant="outline"
-                className="w-full border-2 border-primary text-primary hover:bg-primary/10 rounded-xl h-12 text-base font-medium disabled:opacity-50"
+                className="w-full border-2 border-primary text-primary hover:bg-primary/10 rounded-full h-12 text-base font-medium disabled:opacity-50"
                 size="lg"
               >
                 Save for Later

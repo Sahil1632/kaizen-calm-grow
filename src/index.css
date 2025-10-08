@@ -6,41 +6,41 @@
 
 @layer base {
   :root {
-    /* Soft, minimal background palette */
-    --background: 120 25% 98%;
-    --foreground: 220 15% 25%;
+    /* Fresh green and light blue palette */
+    --background: 180 100% 98%;
+    --foreground: 160 60% 12%;
 
     /* Clean card system */
     --card: 0 0% 100%;
-    --card-foreground: 220 15% 25%;
+    --card-foreground: 160 60% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 25%;
+    --popover-foreground: 160 60% 12%;
 
-    /* Vibrant primary for modern feel */
-    --primary: 158 70% 45%;
+    /* Vibrant teal primary */
+    --primary: 165 82% 51%;
     --primary-foreground: 0 0% 100%;
 
-    /* Refreshed secondary tones */
-    --secondary: 160 35% 96%;
-    --secondary-foreground: 220 15% 25%;
+    /* Light blue secondary */
+    --secondary: 195 65% 55%;
+    --secondary-foreground: 0 0% 100%;
 
     /* Gentle muted tones */
-    --muted: 210 20% 95%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 180 30% 94%;
+    --muted-foreground: 160 20% 45%;
 
-    /* Brighter accent */
-    --accent: 200 80% 60%;
-    --accent-foreground: 0 0% 100%;
+    /* Bright accent */
+    --accent: 165 70% 95%;
+    --accent-foreground: 165 82% 51%;
 
     /* Clearer destructive */
-    --destructive: 350 70% 60%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Subtle but visible borders */
-    --border: 220 15% 85%;
-    --input: 220 15% 90%;
-    --ring: 158 70% 45%;
+    --border: 180 25% 88%;
+    --input: 180 25% 88%;
+    --ring: 165 82% 51%;
 
     /* Energy level colors - soft pastels */
     --energy-drained: 350 40% 85%;
@@ -49,11 +49,11 @@
     --energy-focused: 200 40% 80%;
     --energy-peak: 270 35% 85%;
 
-    /* Brighter gradients */
-    --gradient-growth: linear-gradient(135deg, hsl(158 70% 96%), hsl(200 80% 96%));
-    --gradient-calm: linear-gradient(180deg, hsl(210 70% 98%), hsl(158 60% 97%));
-    --gradient-zen: linear-gradient(45deg, hsl(260 80% 97%), hsl(200 80% 97%));
-    --gradient-floating: linear-gradient(135deg, hsl(0 0% 100% / 0.9), hsl(158 60% 97% / 0.9));
+    /* Vibrant green/blue gradients */
+    --gradient-growth: linear-gradient(135deg, hsl(165, 82%, 51%) 0%, hsl(165, 75%, 45%) 100%);
+    --gradient-calm: linear-gradient(135deg, hsl(180, 100%, 98%) 0%, hsl(195, 70%, 92%) 100%);
+    --gradient-zen: linear-gradient(180deg, hsl(180, 100%, 99%) 0%, hsl(180, 50%, 96%) 100%);
+    --gradient-floating: linear-gradient(135deg, hsla(165, 82%, 51%, 0.95) 0%, hsla(195, 65%, 55%, 0.95) 100%);
 
     /* Soft, minimal shadows */
     --shadow-soft: 0 2px 12px hsla(220, 15%, 25%, 0.08);
@@ -85,34 +85,34 @@
   }
 
   .dark {
-    /* Dark mode with soft, muted tones */
-    --background: 220 20% 8%;
-    --foreground: 210 15% 88%;
+    /* Dark mode with teal/blue tones */
+    --background: 160 45% 8%;
+    --foreground: 180 100% 98%;
 
-    --card: 220 15% 12%;
-    --card-foreground: 210 15% 88%;
+    --card: 160 40% 10%;
+    --card-foreground: 180 100% 98%;
 
-    --popover: 220 15% 12%;
-    --popover-foreground: 210 15% 88%;
+    --popover: 160 40% 10%;
+    --popover-foreground: 180 100% 98%;
 
-    --primary: 140 25% 55%;
+    --primary: 165 82% 51%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 10% 18%;
-    --secondary-foreground: 210 15% 88%;
+    --secondary: 195 65% 55%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 10% 15%;
-    --muted-foreground: 210 10% 60%;
+    --muted: 160 30% 18%;
+    --muted-foreground: 180 20% 65%;
 
-    --accent: 210 25% 25%;
-    --accent-foreground: 210 15% 88%;
+    --accent: 160 40% 15%;
+    --accent-foreground: 165 82% 51%;
 
-    --destructive: 350 40% 65%;
+    --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 10% 22%;
-    --input: 220 10% 18%;
-    --ring: 140 25% 55%;
+    --border: 160 30% 20%;
+    --input: 160 30% 20%;
+    --ring: 165 82% 51%;
 
     /* Dark mode energy colors - muted */
     --energy-drained: 350 30% 55%;
@@ -121,11 +121,11 @@
     --energy-focused: 200 30% 55%;
     --energy-peak: 270 25% 65%;
 
-    /* Dark soft gradients */
-    --gradient-growth: linear-gradient(135deg, hsl(140 25% 20%), hsl(160 20% 22%));
-    --gradient-calm: linear-gradient(180deg, hsl(210 25% 15%), hsl(140 15% 18%));
-    --gradient-zen: linear-gradient(45deg, hsl(220 10% 15%), hsl(210 15% 18%));
-    --gradient-floating: linear-gradient(135deg, hsl(220 15% 12% / 0.95), hsl(140 25% 15% / 0.95));
+    /* Dark mode gradients */
+    --gradient-growth: linear-gradient(135deg, hsl(165 60% 25%), hsl(195 50% 28%));
+    --gradient-calm: linear-gradient(180deg, hsl(160 40% 12%), hsl(180 35% 15%));
+    --gradient-zen: linear-gradient(45deg, hsl(160 30% 12%), hsl(180 30% 14%));
+    --gradient-floating: linear-gradient(135deg, hsl(160 40% 10% / 0.95), hsl(165 50% 15% / 0.95));
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
