@@ -8,30 +8,30 @@
   :root {
     /* Warm pastel palette - creating breathing space */
     --background: 210 40% 98%;
-    --foreground: 215 25% 27%;
+    --foreground: 220 30% 20%;
 
     /* Clean card system */
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 220 30% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 220 30% 20%;
 
     /* Soft teal/green primary - warm pastel */
-    --primary: 165 55% 65%;
+    --primary: 165 60% 50%;
     --primary-foreground: 0 0% 100%;
 
     /* Gentle secondary */
     --secondary: 210 40% 96%;
-    --secondary-foreground: 215 25% 27%;
+    --secondary-foreground: 220 30% 20%;
 
     /* Gentle muted tones */
     --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted-foreground: 220 20% 40%;
 
     /* Peachy pink accent - warm pastel */
-    --accent: 340 70% 80%;
-    --accent-foreground: 215 25% 27%;
+    --accent: 340 75% 65%;
+    --accent-foreground: 220 30% 20%;
 
     /* Clearer destructive */
     --destructive: 0 84% 60%;
