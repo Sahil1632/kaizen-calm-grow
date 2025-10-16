@@ -3,35 +3,74 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ArrowLeft, Clock, Target, Trophy, Star, Leaf } from "lucide-react";
+import { ArrowLeft, Clock, Target, Trophy, Star, Leaf, Award, Share2 } from "lucide-react";
 import kaizenPlant from "@/assets/kaizen-plant.jpg";
 import CalendarHeatmap from "@/components/CalendarHeatmap";
+import { useToast } from "@/hooks/use-toast";
+
+const ACHIEVEMENT_BADGES = [
+  { id: "first-session", emoji: "🌱", name: "First Steps", description: "Complete your first session", requirement: 1, stat: "totalSessions" },
+  { id: "five-sessions", emoji: "🌿", name: "Growing Strong", description: "Complete 5 sessions", requirement: 5, stat: "totalSessions" },
+  { id: "ten-sessions", emoji: "🌳", name: "Deeply Rooted", description: "Complete 10 sessions", requirement: 10, stat: "totalSessions" },
+  { id: "100-minutes", emoji: "⏱️", name: "Time Master", description: "Focus for 100 minutes", requirement: 100, stat: "totalMinutes" },
+  { id: "500-minutes", emoji: "⏰", name: "Focus Champion", description: "Focus for 500 minutes", requirement: 500, stat: "totalMinutes" },
+  { id: "streak-3", emoji: "🔥", name: "On Fire", description: "3 day streak", requirement: 3, stat: "streakDays" },
+  { id: "streak-7", emoji: "💫", name: "Week Warrior", description: "7 day streak", requirement: 7, stat: "streakDays" },
+  { id: "100-xp", emoji: "✨", name: "Rising Star", description: "Earn 100 XP", requirement: 100, stat: "totalXP" },
+  { id: "500-xp", emoji: "🌟", name: "Shining Bright", description: "Earn 500 XP", requirement: 500, stat: "totalXP" },
+];
 
 const Growth = () => {
   const [stats, setStats] = useState<any>({});
   const [recentWins, setRecentWins] = useState<any[]>([]);
   const [showCompletion, setShowCompletion] = useState(false);
+  const [earnedBadges, setEarnedBadges] = useState<string[]>([]);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     const savedStats = JSON.parse(localStorage.getItem("kaizen-stats") || "{}");
     const completions = JSON.parse(localStorage.getItem("kaizen-completions") || "[]");
     
-    setStats({
+    const currentStats = {
       totalSessions: savedStats.totalSessions || 0,
       totalMinutes: savedStats.totalMinutes || 0,
       totalXP: savedStats.totalXP || 0,
       streakDays: savedStats.streakDays || 1
-    });
+    };
     
+    setStats(currentStats);
     setRecentWins(completions.slice(-3).reverse());
+
+    // Calculate earned badges
+    const earned = ACHIEVEMENT_BADGES.filter(badge => 
+      currentStats[badge.stat] >= badge.requirement
+    ).map(badge => badge.id);
+    setEarnedBadges(earned);
 
     // Check if coming from completion
     if (searchParams.get("completed") === "true") {
       setShowCompletion(true);
     }
   }, [searchParams]);
+
+  const shareBadge = (badge: typeof ACHIEVEMENT_BADGES[0]) => {
+    const shareText = `🎉 I just earned the "${badge.name}" badge on Kaizen! ${badge.emoji}\n${badge.description}\n#KaizenApp #Achievement`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: `Kaizen Achievement: ${badge.name}`,
+        text: shareText,
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(shareText);
+      toast({
+        title: "Copied to clipboard!",
+        description: "Share your achievement on social media",
+      });
+    }
+  };
 
   const handleNewMilestone = () => {
     navigate("/home");
@@ -167,6 +206,52 @@ const Growth = () => {
             </div>
           </Card>
         )}
+
+        {/* Achievement Badges */}
+        <Card className="p-4 mb-6 shadow-zen bg-card/80 backdrop-blur-sm">
+          <div className="flex items-center mb-4">
+            <Award className="w-4 h-4 mr-2 text-primary" />
+            <h3 className="font-medium text-growth">Achievement Badges</h3>
+          </div>
+          
+          <div className="grid grid-cols-3 gap-3">
+            {ACHIEVEMENT_BADGES.map((badge) => {
+              const isEarned = earnedBadges.includes(badge.id);
+              const progress = Math.min((stats[badge.stat] / badge.requirement) * 100, 100);
+              
+              return (
+                <div 
+                  key={badge.id}
+                  className={`relative p-3 rounded-xl text-center transition-all duration-300 ${
+                    isEarned 
+                      ? 'bg-gradient-zen shadow-soft cursor-pointer hover:scale-105' 
+                      : 'bg-muted/40 opacity-60'
+                  }`}
+                  onClick={() => isEarned && shareBadge(badge)}
+                >
+                  <div className={`text-3xl mb-1 ${isEarned ? 'animate-bounce' : 'grayscale'}`}>
+                    {badge.emoji}
+                  </div>
+                  <div className="text-[10px] font-medium text-foreground mb-1 leading-tight">
+                    {badge.name}
+                  </div>
+                  {!isEarned && (
+                    <div className="text-[9px] text-zen">
+                      {Math.floor(progress)}%
+                    </div>
+                  )}
+                  {isEarned && (
+                    <Share2 className="w-3 h-3 mx-auto mt-1 text-primary opacity-60" />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          
+          <p className="text-xs text-zen text-center mt-4">
+            {earnedBadges.length}/{ACHIEVEMENT_BADGES.length} badges earned • Tap to share
+          </p>
+        </Card>
 
         {/* Calendar Heatmap */}
         <div className="mb-6">
