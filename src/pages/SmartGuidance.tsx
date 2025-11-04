@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Brain, Clock, Star, Zap, Mic, MicOff, Send, Loader2, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { cn } from "@/lib/utils";
 
 interface Message {
   role: "user" | "assistant";
@@ -224,31 +225,32 @@ const SmartGuidance = () => {
           </div>
 
           {/* Input Area */}
-          <div className="flex gap-2">
-            <div className="flex-1 relative">
+          <div className="flex gap-2 items-end">
+            <div className="flex-1 flex gap-2">
               <Input
                 placeholder="Describe your task or ask a question..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && sendMessage()}
-                className="pr-12 rounded-full bg-background/50 border-primary/20 focus:border-primary"
+                className="rounded-full bg-background/50 border-primary/20 focus:border-primary"
                 disabled={isLoading}
               />
               <Button
                 onClick={toggleVoiceInput}
                 size="sm"
                 variant="ghost"
-                className={`absolute right-1 top-1/2 -translate-y-1/2 rounded-full ${
-                  isListening ? 'text-red-500 animate-pulse' : 'text-muted-foreground'
-                }`}
+                className={cn(
+                  "rounded-full w-10 h-10 p-0 flex-shrink-0",
+                  isListening ? 'text-red-500 bg-red-50 dark:bg-red-950/20 animate-pulse' : 'text-muted-foreground hover:bg-primary/10'
+                )}
               >
-                {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
               </Button>
             </div>
             <Button
               onClick={sendMessage}
               disabled={!input.trim() || isLoading}
-              className="rounded-full w-12 h-12 p-0 bg-primary hover:bg-primary/90 shadow-lg"
+              className="rounded-full w-12 h-12 p-0 flex-shrink-0 bg-primary hover:bg-primary/90 shadow-lg"
             >
               <Send className="w-5 h-5" />
             </Button>

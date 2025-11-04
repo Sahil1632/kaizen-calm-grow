@@ -24,9 +24,9 @@ export const FloatingMenu = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="fixed bottom-3 left-1/2 transform -translate-x-1/2 z-50">
+    <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4">
       {/* Navigation Bar */}
-      <div className="bg-card/90 backdrop-blur-md rounded-full px-3 py-2 shadow-zen border border-primary/20 flex items-center space-x-3">
+      <div className="bg-card/95 backdrop-blur-xl rounded-full px-2 py-2 shadow-floating border border-primary/30 flex items-center justify-around">
         {menuItems.map((item) => (
           <Button
             key={item.path}
@@ -34,14 +34,20 @@ export const FloatingMenu = () => {
             variant="ghost"
             size="sm"
             className={cn(
-              "rounded-full w-12 h-12 p-0 transition-all duration-300",
+              "rounded-full w-14 h-14 p-0 transition-all duration-300 relative",
               isActive(item.path) 
-                ? "bg-primary text-primary-foreground shadow-soft" 
-                : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                ? "bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-focus scale-110" 
+                : "text-muted-foreground hover:text-foreground hover:bg-primary/10 hover:scale-105"
             )}
           >
-            <item.icon className="w-5 h-5" />
+            <item.icon className={cn(
+              "w-6 h-6 transition-all duration-300",
+              isActive(item.path) && "drop-shadow-lg"
+            )} />
             <span className="sr-only">{item.label}</span>
+            {isActive(item.path) && (
+              <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary-foreground rounded-full" />
+            )}
           </Button>
         ))}
       </div>
