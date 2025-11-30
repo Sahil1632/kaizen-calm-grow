@@ -139,18 +139,78 @@ const SmartGuidance = () => {
     }
   };
 
-  const startMilestone = (milestone: Milestone) => {
-    const taskData = {
-      title: milestone.title,
-      description: milestone.description,
-      estimatedTime: milestone.estimatedTime,
-      xp: milestone.xp,
-      type: "smart-guidance",
-      createdAt: new Date().toISOString()
-    };
-    
-    localStorage.setItem("kaizen-current-task", JSON.stringify(taskData));
-    navigate("/focus");
+  const startMilestone = async (milestone: Milestone) => {
+    try {
+      // Get current user session
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        toast({
+          title: "Authentication required",
+          description: "Please log in to save tasks",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Calculate due date (current time + estimated time + nudge hours)
+      const dueDate = new Date();
+      dueDate.setMinutes(dueDate.getMinutes() + milestone.estimatedTime);
+      
+      // Save task to database
+      const { data: taskData, error } = await supabase
+        .from("tasks")
+        .insert({
+          user_id: session.user.id,
+          title: milestone.title,
+          description: milestone.description,
+          estimated_time: milestone.estimatedTime,
+          xp: milestone.xp,
+          energy: milestone.energy,
+          status: "in_progress",
+          due_at: dueDate.toISOString(),
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.error("Error saving task:", error);
+        toast({
+          title: "Error",
+          description: "Failed to save task",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Store task data in localStorage for focus mode
+      const localTaskData = {
+        id: taskData.id,
+        title: milestone.title,
+        description: milestone.description,
+        estimatedTime: milestone.estimatedTime,
+        xp: milestone.xp,
+        energy: milestone.energy,
+        type: "smart-guidance",
+        createdAt: new Date().toISOString()
+      };
+      
+      localStorage.setItem("kaizen-current-task", JSON.stringify(localTaskData));
+      
+      toast({
+        title: "Task started!",
+        description: "Focus mode activated",
+      });
+      
+      navigate("/focus");
+    } catch (error: any) {
+      console.error("Error starting milestone:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to start task",
+        variant: "destructive",
+      });
+    }
   };
 
   const energyColors: Record<string, string> = {

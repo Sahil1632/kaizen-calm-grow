@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useNavigate } from "react-router-dom";
 import { Pause, Play, RotateCcw, X, Volume2, Star, Clock } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const FocusMode = () => {
   const [task, setTask] = useState<any>(null);
@@ -11,6 +13,7 @@ const FocusMode = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     const savedTask = localStorage.getItem("kaizen-current-task");
@@ -62,28 +65,57 @@ const FocusMode = () => {
     setIsRunning(false);
   };
 
-  const completeSession = () => {
-    // Save completion
-    const completions = JSON.parse(localStorage.getItem("kaizen-completions") || "[]");
-    completions.push({
-      ...task,
-      completedAt: new Date().toISOString(),
-      actualTime: totalTime
-    });
-    localStorage.setItem("kaizen-completions", JSON.stringify(completions));
-    
-    // Update stats
-    const stats = JSON.parse(localStorage.getItem("kaizen-stats") || "{}");
-    stats.totalSessions = (stats.totalSessions || 0) + 1;
-    stats.totalMinutes = (stats.totalMinutes || 0) + (task?.estimatedTime || 25);
-    stats.totalXP = (stats.totalXP || 0) + (task?.xp || 10);
-    localStorage.setItem("kaizen-stats", JSON.stringify(stats));
+  const completeSession = async () => {
+    try {
+      // Update task status in database if task has an ID
+      if (task.id) {
+        const { error } = await supabase
+          .from("tasks")
+          .update({
+            status: "completed",
+            completed_at: new Date().toISOString(),
+          })
+          .eq("id", task.id);
 
-    // Clear current task
-    localStorage.removeItem("kaizen-current-task");
-    
-    // Navigate to completion
-    navigate("/growth?completed=true");
+        if (error) {
+          console.error("Error updating task:", error);
+          toast({
+            title: "Warning",
+            description: "Task completed locally, but failed to sync to database",
+            variant: "destructive",
+          });
+        }
+      }
+
+      // Save completion to localStorage for backward compatibility
+      const completions = JSON.parse(localStorage.getItem("kaizen-completions") || "[]");
+      completions.push({
+        ...task,
+        completedAt: new Date().toISOString(),
+        actualTime: totalTime
+      });
+      localStorage.setItem("kaizen-completions", JSON.stringify(completions));
+      
+      // Update stats
+      const stats = JSON.parse(localStorage.getItem("kaizen-stats") || "{}");
+      stats.totalSessions = (stats.totalSessions || 0) + 1;
+      stats.totalMinutes = (stats.totalMinutes || 0) + (task?.estimatedTime || 25);
+      stats.totalXP = (stats.totalXP || 0) + (task?.xp || 10);
+      localStorage.setItem("kaizen-stats", JSON.stringify(stats));
+
+      // Clear current task
+      localStorage.removeItem("kaizen-current-task");
+      
+      // Navigate to completion
+      navigate("/growth?completed=true");
+    } catch (error: any) {
+      console.error("Error completing session:", error);
+      toast({
+        title: "Error",
+        description: "Failed to complete session",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleExit = () => {
