@@ -260,11 +260,16 @@ const Profile = () => {
                 <Settings className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <div className="font-medium text-foreground">Settings</div>
-                <div className="text-xs text-muted-foreground">Notifications, themes, data</div>
+                <div className="font-medium text-foreground">Notification Settings</div>
+                <div className="text-xs text-muted-foreground">Email reminders & preferences</div>
               </div>
             </div>
-            <Button variant="ghost" size="sm" className="text-primary rounded-full">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-primary rounded-full"
+              onClick={() => navigate("/notifications")}
+            >
               Manage
             </Button>
           </div>

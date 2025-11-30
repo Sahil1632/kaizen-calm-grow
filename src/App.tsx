@@ -17,6 +17,7 @@ import Profile from "./pages/Profile";
 import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 import Reflection from "./pages/Reflection";
+import NotificationSettings from "./pages/NotificationSettings";
 
 const AppContent = () => {
   const location = useLocation();
@@ -37,6 +38,7 @@ const AppContent = () => {
         <Route path="/growth" element={<Growth />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/subscription" element={<Subscription />} />
+        <Route path="/notifications" element={<NotificationSettings />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {showFloatingMenu && <div aria-hidden className="h-14" />}

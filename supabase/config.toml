@@ -1,1 +1,10 @@
 project_id = "wtlumanjadruxkznlupi"
+
+[functions.smart-guidance-chat]
+verify_jwt = false
+
+[functions.send-task-reminder]
+verify_jwt = false
+
+[functions.check-overdue-tasks]
+verify_jwt = false
