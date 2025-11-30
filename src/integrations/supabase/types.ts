@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      notification_preferences: {
+        Row: {
+          created_at: string
+          email_notifications_enabled: boolean
+          id: string
+          notification_email: string | null
+          nudge_hours_after: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email_notifications_enabled?: boolean
+          id?: string
+          notification_email?: string | null
+          nudge_hours_after?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email_notifications_enabled?: boolean
+          id?: string
+          notification_email?: string | null
+          nudge_hours_after?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -50,15 +80,72 @@ export type Database = {
         }
         Relationships: []
       }
+      tasks: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          due_at: string | null
+          energy: string
+          estimated_time: number
+          id: string
+          status: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at: string
+          user_id: string
+          xp: number
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_at?: string | null
+          energy: string
+          estimated_time: number
+          id?: string
+          status?: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at?: string
+          user_id: string
+          xp: number
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_at?: string | null
+          energy?: string
+          estimated_time?: number
+          id?: string
+          status?: Database["public"]["Enums"]["task_status"]
+          title?: string
+          updated_at?: string
+          user_id?: string
+          xp?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_overdue_tasks: {
+        Args: never
+        Returns: {
+          description: string
+          due_at: string
+          estimated_time: number
+          task_id: string
+          title: string
+          user_email: string
+          user_id: string
+          xp: number
+        }[]
+      }
     }
     Enums: {
-      [_ in never]: never
+      task_status: "pending" | "in_progress" | "completed" | "overdue"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -185,6 +272,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      task_status: ["pending", "in_progress", "completed", "overdue"],
+    },
   },
 } as const
