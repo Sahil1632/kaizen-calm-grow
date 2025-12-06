@@ -19,8 +19,10 @@ export type Database = {
           created_at: string
           email_notifications_enabled: boolean
           id: string
+          last_report_sent_at: string | null
           notification_email: string | null
           nudge_hours_after: number
+          report_frequency: string | null
           updated_at: string
           user_id: string
         }
@@ -28,8 +30,10 @@ export type Database = {
           created_at?: string
           email_notifications_enabled?: boolean
           id?: string
+          last_report_sent_at?: string | null
           notification_email?: string | null
           nudge_hours_after?: number
+          report_frequency?: string | null
           updated_at?: string
           user_id: string
         }
@@ -37,8 +41,10 @@ export type Database = {
           created_at?: string
           email_notifications_enabled?: boolean
           id?: string
+          last_report_sent_at?: string | null
           notification_email?: string | null
           nudge_hours_after?: number
+          report_frequency?: string | null
           updated_at?: string
           user_id?: string
         }
