@@ -92,7 +92,9 @@ const FocusMode = () => {
       completions.push({
         ...task,
         completedAt: new Date().toISOString(),
-        actualTime: totalTime
+        actualTime: totalTime,
+        duration: task?.estimatedTime || 25,
+        xp: task?.xp || 10
       });
       localStorage.setItem("kaizen-completions", JSON.stringify(completions));
       
@@ -127,6 +129,10 @@ const FocusMode = () => {
   };
 
   const confirmExit = () => {
+    // Track interrupted session for report card
+    const interruptions = parseInt(localStorage.getItem("kaizen-interruptions") || "0");
+    localStorage.setItem("kaizen-interruptions", String(interruptions + 1));
+    
     localStorage.removeItem("kaizen-current-task");
     navigate("/home");
   };
