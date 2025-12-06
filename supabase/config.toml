@@ -8,3 +8,9 @@ verify_jwt = false
 
 [functions.check-overdue-tasks]
 verify_jwt = false
+
+[functions.send-report-email]
+verify_jwt = false
+
+[functions.check-report-due]
+verify_jwt = false

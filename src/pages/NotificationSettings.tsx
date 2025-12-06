@@ -5,14 +5,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Bell, Mail, Clock } from "lucide-react";
+import { ArrowLeft, Bell, Mail, Clock, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+
+type ReportFrequency = "weekly" | "monthly" | "none";
 
 const NotificationSettings = () => {
   const [email, setEmail] = useState("");
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [nudgeHours, setNudgeHours] = useState(24);
+  const [reportFrequency, setReportFrequency] = useState<ReportFrequency>("weekly");
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const navigate = useNavigate();
@@ -51,6 +54,7 @@ const NotificationSettings = () => {
         setEmail(data.notification_email || "");
         setNotificationsEnabled(data.email_notifications_enabled);
         setNudgeHours(data.nudge_hours_after);
+        setReportFrequency((data as any).report_frequency || "weekly");
       }
     } catch (error: any) {
       console.error("Error:", error);
@@ -96,7 +100,8 @@ const NotificationSettings = () => {
           notification_email: email,
           email_notifications_enabled: notificationsEnabled,
           nudge_hours_after: nudgeHours,
-        }, {
+          report_frequency: reportFrequency,
+        } as any, {
           onConflict: "user_id"
         });
 
@@ -207,6 +212,32 @@ const NotificationSettings = () => {
               </p>
             </div>
 
+            {/* Report Frequency */}
+            <div className="space-y-3">
+              <Label className="flex items-center gap-2 text-growth">
+                <FileText className="w-4 h-4" />
+                Report Card Frequency
+              </Label>
+              <p className="text-xs text-muted-foreground -mt-1">
+                Receive a summary of your progress via email
+              </p>
+              <div className="flex gap-2">
+                {(["weekly", "monthly", "none"] as ReportFrequency[]).map((freq) => (
+                  <Button
+                    key={freq}
+                    type="button"
+                    variant={reportFrequency === freq ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setReportFrequency(freq)}
+                    disabled={!notificationsEnabled}
+                    className="flex-1 rounded-xl capitalize"
+                  >
+                    {freq === "none" ? "Off" : freq}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
             {/* Save Button */}
             <Button
               onClick={saveSettings}
@@ -222,7 +253,8 @@ const NotificationSettings = () => {
               <ul className="text-xs text-zen space-y-1">
                 <li>• Tasks created from Smart Guidance will have automatic reminders</li>
                 <li>• You'll receive an email if a task isn't completed after the set delay</li>
-                <li>• Reminders include task details, XP, and estimated time</li>
+                <li>• Report cards summarize your completion rate, XP, and insights</li>
+                <li>• Weekly reports are sent on Mondays, monthly on the 1st</li>
                 <li>• You can disable notifications anytime from this page</li>
               </ul>
             </Card>
