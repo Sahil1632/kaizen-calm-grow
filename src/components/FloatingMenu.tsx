@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, TrendingUp, PenLine, User } from "lucide-react";
+import { Home, TrendingUp, PenLine, User, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const FloatingMenu = () => {
@@ -12,6 +12,7 @@ export const FloatingMenu = () => {
   const menuItems = [
     { icon: Home, label: "Home", path: "/home" },
     { icon: TrendingUp, label: "Growth", path: "/growth" },
+    { icon: BarChart3, label: "Report", path: "/report" },
     { icon: PenLine, label: "Reflect", path: "/reflect" },
     { icon: User, label: "Profile", path: "/profile" },
   ];
