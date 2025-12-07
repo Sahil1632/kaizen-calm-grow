@@ -18,8 +18,6 @@ import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 import Reflection from "./pages/Reflection";
 import NotificationSettings from "./pages/NotificationSettings";
-import ReportCard from "./pages/ReportCard";
-
 const AppContent = () => {
   const location = useLocation();
   const showFloatingMenu = !["/", "/onboarding", "/purpose", "/energy"].includes(location.pathname);
@@ -40,7 +38,6 @@ const AppContent = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/subscription" element={<Subscription />} />
         <Route path="/notifications" element={<NotificationSettings />} />
-        <Route path="/report" element={<ReportCard />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {showFloatingMenu && <div aria-hidden className="h-14" />}
