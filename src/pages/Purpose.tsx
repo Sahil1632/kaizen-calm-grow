@@ -31,6 +31,12 @@ const Purpose = () => {
             placeholder="Write what drives you, what you care about, what you want to grow towards..."
             value={purpose}
             onChange={(e) => setPurpose(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey && purpose.trim()) {
+                e.preventDefault();
+                handleSubmit();
+              }
+            }}
             className="min-h-32 bg-background/50 border-primary/20 focus:border-primary resize-none"
           />
 

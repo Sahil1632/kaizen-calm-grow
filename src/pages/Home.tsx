@@ -130,21 +130,21 @@ const Home = () => {
           <div className="space-y-4">
             <Button
               onClick={() => navigate("/quick-start")}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft transition-all duration-300 rounded-xl h-14 text-base font-medium"
+              variant="ghost"
+              className="w-full bg-background text-foreground hover:bg-muted shadow-soft transition-all duration-300 rounded-xl h-14 text-base font-medium border border-border"
               size="lg"
             >
               <Target className="w-5 h-5 mr-3" />
-              Quick Start — add your own task
+              Quick Start
             </Button>
 
             <Button
               onClick={() => navigate("/smart-guidance")}
-              variant="outline"
-              className="w-full border-2 border-primary text-primary hover:bg-primary/10 rounded-xl h-14 text-base font-medium"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl h-14 text-base font-medium shadow-[0_0_20px_hsl(var(--primary)/0.4),0_0_40px_hsl(var(--primary)/0.2)] hover:shadow-[0_0_25px_hsl(var(--primary)/0.5),0_0_50px_hsl(var(--primary)/0.3)] transition-all duration-300 animate-pulse-glow"
               size="lg"
             >
               <Brain className="w-5 h-5 mr-3" />
-              Smart Guidance — let Kaizen break it down
+              Smart Guidance
             </Button>
           </div>
         </Card>

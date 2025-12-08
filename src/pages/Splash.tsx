@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import kaizenPlant from "@/assets/kaizen-plant.jpg";
 
 const GoogleIcon = () => (
@@ -13,7 +16,28 @@ const GoogleIcon = () => (
 );
 
 const Splash = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    try {
+      const redirectUrl = `${window.location.origin}/home`;
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: redirectUrl
+        }
+      });
+      if (error) {
+        toast.error(error.message);
+      }
+    } catch (error: any) {
+      toast.error("Failed to sign in with Google");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-calm flex items-center justify-center p-6">
@@ -30,12 +54,13 @@ const Splash = () => {
 
         <div className="space-y-4">
           <Button 
-            onClick={() => navigate("/onboarding")}
-            className="w-full bg-white hover:bg-white/90 text-gray-700 shadow-soft hover:shadow-focus transition-all duration-300 rounded-xl h-14 text-lg font-semibold border border-gray-200"
+            onClick={handleGoogleSignIn}
+            disabled={loading}
+            className="w-full bg-white hover:bg-white/90 text-gray-700 shadow-soft hover:shadow-focus transition-all duration-300 rounded-xl h-14 text-lg font-semibold border border-gray-200 disabled:opacity-50"
             size="lg"
           >
             <GoogleIcon />
-            Continue with Google
+            {loading ? "Signing in..." : "Continue with Google"}
           </Button>
           
           <Button 
