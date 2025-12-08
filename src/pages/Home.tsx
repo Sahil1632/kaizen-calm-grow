@@ -128,23 +128,44 @@ const Home = () => {
           <p className="text-muted-foreground mb-6">Ready to take a mindful step forward?</p>
           
           <div className="space-y-4">
+            {/* Quick Start - Subtle glassmorphism with soft border */}
             <Button
               onClick={() => navigate("/quick-start")}
               variant="ghost"
-              className="w-full bg-background text-foreground hover:bg-muted shadow-soft transition-all duration-300 rounded-xl h-14 text-base font-medium border border-border"
+              className="group w-full relative overflow-hidden bg-card/60 backdrop-blur-sm text-foreground hover:bg-card/80 rounded-2xl h-16 text-base font-medium border border-border/50 hover:border-primary/30 shadow-[0_2px_12px_hsl(var(--foreground)/0.04)] hover:shadow-[0_4px_20px_hsl(var(--primary)/0.1)] transition-all duration-500"
               size="lg"
             >
-              <Target className="w-5 h-5 mr-3" />
-              Quick Start
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative flex items-center justify-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-muted/50 flex items-center justify-center group-hover:bg-primary/10 transition-colors duration-300">
+                  <Target className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
+                </div>
+                <span className="group-hover:text-primary/90 transition-colors duration-300">Quick Start</span>
+              </div>
             </Button>
 
+            {/* Smart Guidance - Premium glowing gradient with depth */}
             <Button
               onClick={() => navigate("/smart-guidance")}
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl h-14 text-base font-medium shadow-[0_0_20px_hsl(var(--primary)/0.4),0_0_40px_hsl(var(--primary)/0.2)] hover:shadow-[0_0_25px_hsl(var(--primary)/0.5),0_0_50px_hsl(var(--primary)/0.3)] transition-all duration-300 animate-pulse-glow"
+              className="group w-full relative overflow-hidden rounded-2xl h-16 text-base font-medium border-0 shadow-[0_4px_24px_hsl(var(--primary)/0.25),0_0_48px_hsl(var(--primary)/0.15)] hover:shadow-[0_6px_32px_hsl(var(--primary)/0.35),0_0_64px_hsl(var(--primary)/0.2)] transition-all duration-500 animate-pulse-glow"
               size="lg"
             >
-              <Brain className="w-5 h-5 mr-3" />
-              Smart Guidance
+              {/* Layered gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary rounded-2xl" />
+              <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/10 rounded-2xl" />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-primary/80 via-primary to-primary/80 transition-opacity duration-500" />
+              
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+              </div>
+              
+              <div className="relative flex items-center justify-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/20 transition-colors duration-300">
+                  <Brain className="w-5 h-5 text-primary-foreground" />
+                </div>
+                <span className="text-primary-foreground font-semibold tracking-wide">Smart Guidance</span>
+              </div>
             </Button>
           </div>
         </Card>
