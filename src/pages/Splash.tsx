@@ -30,11 +30,15 @@ const Splash = () => {
         }
       });
       if (error) {
-        toast.error(error.message);
+        if (error.message.includes('validation_failed') || error.message.includes('Provider not found')) {
+          toast.error("Google sign-in is not configured yet. Please use Guest mode for now.");
+        } else {
+          toast.error(error.message);
+        }
+        setLoading(false);
       }
     } catch (error: any) {
-      toast.error("Failed to sign in with Google");
-    } finally {
+      toast.error("Google sign-in is not available. Please continue as Guest.");
       setLoading(false);
     }
   };
