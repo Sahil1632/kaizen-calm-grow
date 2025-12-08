@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { Zap, Target, Brain, Crown } from "lucide-react";
 import kaizenLogo from "@/assets/kaizen-logo.png";
-import heroAnime from "@/assets/hero-anime-focus.webp";
+import SoothingBackground from "@/components/SoothingBackground";
 
 const Home = () => {
   const [purpose, setPurpose] = useState("");
@@ -34,8 +34,10 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-calm p-6 pb-24">
-      <div className="max-w-md mx-auto pt-8">
+    <div className="min-h-screen relative p-6 pb-24">
+      <SoothingBackground />
+      
+      <div className="max-w-md mx-auto pt-8 relative z-10">
         {/* Header with Streaks, Kaizen Plus, and XP */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center space-x-2 bg-card/60 backdrop-blur-sm px-3 py-2 rounded-full shadow-soft">
@@ -64,12 +66,11 @@ const Home = () => {
           <img src={kaizenLogo} alt="Kaizen logo" className="w-20 h-20 mx-auto mb-4 rounded-2xl shadow-soft" />
           <h1 className="text-2xl font-medium text-growth mb-2">Welcome back</h1>
           {purpose && (
-            <p className="text-zen text-sm bg-card/50 p-3 rounded-lg border border-primary/20">
+            <p className="text-zen text-sm bg-card/50 backdrop-blur-sm p-3 rounded-lg border border-primary/20">
               "{purpose.slice(0, 80)}{purpose.length > 80 ? "..." : ""}"
             </p>
           )}
         </div>
-        <img src={heroAnime} alt="Anime productivity hero" loading="lazy" className="w-full h-40 object-cover rounded-2xl shadow-soft mb-6" />
         {!hasReflectionToday && (
           <Card className="p-4 mb-6 bg-card shadow-soft rounded-2xl border border-primary/20 animate-fade-in">
             <div className="flex items-center justify-between">
