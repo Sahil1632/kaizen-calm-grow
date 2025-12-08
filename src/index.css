@@ -235,3 +235,18 @@
   50% { transform: scale(1.05) rotate(-5deg); }
   75% { transform: scale(1.1) rotate(3deg); }
 }
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px hsl(165 60% 50% / 0.4), 0 0 40px hsl(165 60% 50% / 0.2);
+  }
+  50% { 
+    box-shadow: 0 0 30px hsl(165 60% 50% / 0.6), 0 0 60px hsl(165 60% 50% / 0.3);
+  }
+}
+
+@layer utilities {
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+}
