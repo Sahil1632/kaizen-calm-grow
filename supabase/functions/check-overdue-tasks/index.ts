@@ -3,10 +3,11 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
 const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+const cronSecret = Deno.env.get("CRON_SECRET");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-cron-secret",
 };
 
 const handler = async (req: Request): Promise<Response> => {
@@ -15,6 +16,16 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Validate cron secret
+    const requestSecret = req.headers.get("x-cron-secret");
+    if (!cronSecret || requestSecret !== cronSecret) {
+      console.error("Invalid or missing cron secret");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     console.log("Starting overdue tasks check...");
     
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
@@ -36,7 +47,7 @@ const handler = async (req: Request): Promise<Response> => {
         try {
           console.log(`Sending reminder for task: ${task.title} to ${task.user_email}`);
           
-          // Call the send-task-reminder function
+          // Call the send-task-reminder function with cron secret
           const { data: emailResult, error: emailError } = await supabase.functions.invoke(
             "send-task-reminder",
             {
@@ -46,6 +57,9 @@ const handler = async (req: Request): Promise<Response> => {
                 taskDescription: task.description,
                 xp: task.xp,
                 estimatedTime: task.estimated_time,
+              },
+              headers: {
+                "x-cron-secret": cronSecret!,
               },
             }
           );
@@ -83,20 +97,14 @@ const handler = async (req: Request): Promise<Response> => {
       }),
       {
         status: 200,
-        headers: {
-          "Content-Type": "application/json",
-          ...corsHeaders,
-        },
+        headers: { "Content-Type": "application/json", ...corsHeaders },
       }
     );
   } catch (error: any) {
     console.error("Error in check-overdue-tasks function:", error);
     return new Response(
       JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }
 };
