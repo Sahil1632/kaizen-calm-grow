@@ -106,8 +106,12 @@ const SmartGuidance = () => {
     setIsLoading(true);
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const isGuest = localStorage.getItem('kaizen-guest') === 'true';
+      
       const { data, error } = await supabase.functions.invoke("smart-guidance-chat", {
-        body: { messages: [...messages, userMessage] }
+        body: { messages: [...messages, userMessage] },
+        headers: isGuest ? { 'x-guest-mode': 'true' } : {}
       });
 
       if (error) throw error;

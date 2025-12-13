@@ -1,9 +1,11 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
+const cronSecret = Deno.env.get("CRON_SECRET");
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-cron-secret",
 };
 
 const handler = async (req: Request): Promise<Response> => {
@@ -12,6 +14,16 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Validate cron secret
+    const requestSecret = req.headers.get("x-cron-secret");
+    if (!cronSecret || requestSecret !== cronSecret) {
+      console.error("Invalid or missing cron secret");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
@@ -88,7 +100,7 @@ const handler = async (req: Request): Promise<Response> => {
       const focusMinutes = completedTasks.reduce((acc, t) => acc + (t.estimated_time || 0), 0);
       const completionRate = totalTasks > 0 ? Math.round((completedTasks.length / totalTasks) * 100) : 0;
 
-      // Generate insight
+      // Generate insight (sanitized - no user input used)
       let topInsight = "Start completing tasks to see personalized insights!";
       if (completionRate >= 80) {
         topInsight = "Amazing! You're completing most of your tasks. Keep this momentum going!";
@@ -98,7 +110,7 @@ const handler = async (req: Request): Promise<Response> => {
         topInsight = "Consider starting with your highest-energy tasks first.";
       }
 
-      // Send report email
+      // Send report email with cron secret
       const emailPayload = {
         userEmail: pref.notification_email,
         reportType: pref.report_frequency,
@@ -107,23 +119,21 @@ const handler = async (req: Request): Promise<Response> => {
         xpEarned,
         xpMissed,
         focusMinutes,
-        interruptedSessions: 0, // We don't have this data in DB
+        interruptedSessions: 0,
         completionRate,
         topInsight
       };
 
       console.log(`Sending ${pref.report_frequency} report to ${pref.notification_email}`);
 
-      const sendResponse = await fetch(`${supabaseUrl}/functions/v1/send-report-email`, {
-        method: "POST",
+      const { error: invokeError } = await supabase.functions.invoke("send-report-email", {
+        body: emailPayload,
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${supabaseServiceKey}`,
+          "x-cron-secret": cronSecret!,
         },
-        body: JSON.stringify(emailPayload),
       });
 
-      if (sendResponse.ok) {
+      if (!invokeError) {
         // Update last_report_sent_at
         await supabase
           .from("notification_preferences")
@@ -133,7 +143,7 @@ const handler = async (req: Request): Promise<Response> => {
         reportsSent++;
         console.log(`Report sent successfully to ${pref.notification_email}`);
       } else {
-        console.error(`Failed to send report to ${pref.notification_email}`);
+        console.error(`Failed to send report to ${pref.notification_email}:`, invokeError);
       }
     }
 
@@ -142,19 +152,13 @@ const handler = async (req: Request): Promise<Response> => {
         success: true, 
         message: `Checked ${preferences?.length || 0} users, sent ${reportsSent} reports` 
       }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   } catch (error: any) {
     console.error("Error in check-report-due function:", error);
     return new Response(
       JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }
 };
