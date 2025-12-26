@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import kaizenPlant from "@/assets/kaizen-plant.jpg";
+import OnboardingBackground from "@/components/OnboardingBackground";
 
 const GoogleIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +45,8 @@ const Splash = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-calm flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6 relative">
+      <OnboardingBackground />
       <Card className="w-full max-w-md p-8 text-center shadow-zen bg-card/80 backdrop-blur-sm animate-fade-in">
         <div className="mb-8">
           <img 
