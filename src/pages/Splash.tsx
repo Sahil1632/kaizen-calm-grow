@@ -69,7 +69,10 @@ const Splash = () => {
           
           <Button 
             variant="outline" 
-            onClick={() => navigate("/onboarding")}
+            onClick={() => {
+              localStorage.setItem('kaizen-guest', 'true');
+              navigate("/onboarding");
+            }}
             className="w-full border-2 border-primary text-primary hover:bg-primary/10 rounded-xl h-14 text-lg font-medium"
             size="lg"
           >
