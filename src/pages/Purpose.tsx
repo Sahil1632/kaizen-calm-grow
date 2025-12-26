@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useNavigate } from "react-router-dom";
 import { Lock } from "lucide-react";
+import OnboardingBackground from "@/components/OnboardingBackground";
 
 const Purpose = () => {
   const [purpose, setPurpose] = useState("");
@@ -18,7 +19,8 @@ const Purpose = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-calm flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6 relative">
+      <OnboardingBackground />
       <Card className="w-full max-w-md p-8 shadow-zen bg-card/80 backdrop-blur-sm animate-fade-in">
         <div className="text-center mb-8">
           <div className="text-4xl mb-4 animate-breathe">🧭</div>

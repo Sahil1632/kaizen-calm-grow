@@ -276,6 +276,28 @@
   .animate-particle-5 {
     animation: particle-float 11s ease-in-out infinite 1.5s;
   }
+  .animate-float-prompt {
+    animation: float-prompt 6s ease-in-out infinite;
+  }
+}
+
+@keyframes float-prompt {
+  0%, 100% { 
+    transform: translateY(0) translateX(0);
+    opacity: 0.85;
+  }
+  25% { 
+    transform: translateY(-8px) translateX(4px);
+    opacity: 1;
+  }
+  50% { 
+    transform: translateY(-4px) translateX(-4px);
+    opacity: 0.9;
+  }
+  75% { 
+    transform: translateY(-10px) translateX(2px);
+    opacity: 1;
+  }
 }
 
 /* Soothing floating animations */

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import OnboardingBackground from "@/components/OnboardingBackground";
 
 const energyLevels = [
   { id: "peak", label: "Peak", emoji: "⚡", description: "Full energy mode" },
@@ -23,7 +24,8 @@ const EnergySelection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-calm flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6 relative">
+      <OnboardingBackground />
       <Card className="w-full max-w-md p-8 shadow-zen bg-card/80 backdrop-blur-sm animate-fade-in">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-growth mb-3">Choose your energy level ⚡</h1>

@@ -22,6 +22,13 @@ interface Milestone {
   energy: string;
 }
 
+const promptExamples = [
+  { text: "Help me plan my morning routine", position: "top-24 left-4", delay: "0s" },
+  { text: "Break down learning a new skill", position: "top-40 right-2", delay: "0.5s" },
+  { text: "Organize my work project tasks", position: "top-56 left-8", delay: "1s" },
+  { text: "Create a weekly exercise plan", position: "top-72 right-6", delay: "1.5s" },
+];
+
 const SmartGuidance = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -256,9 +263,23 @@ const SmartGuidance = () => {
           {/* Chat Messages */}
           <div className="space-y-3 mb-4 max-h-96 overflow-y-auto">
             {messages.length === 0 && (
-              <div className="text-center py-8">
+              <div className="text-center py-8 relative">
                 <p className="text-zen text-sm mb-2">👋 Hey there!</p>
-                <p className="text-muted-foreground text-xs">Tell me about your task and I'll help you plan it out</p>
+                <p className="text-muted-foreground text-xs mb-6">Tell me about your task and I'll help you plan it out</p>
+                
+                {/* Floating prompt examples */}
+                <div className="relative h-32">
+                  {promptExamples.map((example, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setInput(example.text)}
+                      className={`absolute ${example.position} animate-float-prompt px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs text-primary hover:bg-primary/20 hover:scale-105 transition-all cursor-pointer whitespace-nowrap shadow-sm`}
+                      style={{ animationDelay: example.delay }}
+                    >
+                      {example.text}
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
             {messages.map((msg, idx) => (

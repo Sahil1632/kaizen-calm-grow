@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import OnboardingBackground from "@/components/OnboardingBackground";
 
 const slides = [
   {
@@ -46,7 +47,8 @@ const Onboarding = () => {
   const slide = slides[currentSlide];
 
   return (
-    <div className="min-h-screen bg-gradient-calm flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6 relative">
+      <OnboardingBackground />
       <Card className="w-full max-w-lg p-8 text-center shadow-zen bg-card/80 backdrop-blur-sm">
         <div className="mb-8 animate-fade-in" key={currentSlide}>
           <div className="text-6xl mb-6 animate-breathe">{slide.emoji}</div>
